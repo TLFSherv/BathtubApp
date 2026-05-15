@@ -4,8 +4,7 @@ export default function Home() {
     const labels = new Array(11).fill(0).map((_, i) => i);
     const [rangeValue, setRangeValue] = useState(0);
     return (
-        <div className="space-y-8">
-            <h1 className="text-5xl text-center">Welcome Home !!</h1>
+        <div className="flex-1 space-y-8 bg-[#86BDD5]">
             <div className="mx-auto w-[400px]">
                 <p className="text-xl text-center">
                     {rangeValue}

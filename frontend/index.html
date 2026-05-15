@@ -1,13 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bathtub app</title>
+</head>
+
+<body class="min-h-screen flex flex-col">
+  <header class="border-b-3">
+    <h1 class="text-5xl p-6 font-[Arial] font-semibold tracking-wider underline underline-offset-8">
+      Bathtub App
+    </h1>
+  </header>
+  <div class="flex-1 flex flex-col" id="root"></div>
+  <footer class="border-t-3 p-2">
+    <h2 id="foot" class="w-fit mx-auto"></h2>
+  </footer>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
+<script>
+  const year = new Date().getFullYear();
+  const footerText = document.getElementById("foot");
+  footerText.innerText = `@Copyright ${year}`;
+</script>
