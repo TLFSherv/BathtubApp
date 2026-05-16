@@ -1,7 +1,7 @@
 import { useState } from "react"
+import type { TModelParameters } from "../types/types";
 
 export default function ModelControl() {
-    type TModelParameters = { length: number; width: number; drainDiameter: number; surfaceArea: number; drainArea: number };
     const initParameters: TModelParameters = {
         length: 0,
         width: 0,
