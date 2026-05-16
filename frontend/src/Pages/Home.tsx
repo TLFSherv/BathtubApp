@@ -1,23 +1,16 @@
-import { useState } from "react";
+import Faucet from "../components/Faucet"
+import ModelControl from "../components/ModelControl"
 
 export default function Home() {
-    const labels = new Array(11).fill(0).map((_, i) => i);
-    const [rangeValue, setRangeValue] = useState(0);
+
     return (
-        <div className="flex-1 space-y-8 bg-[#86BDD5]">
-            <div className="mx-auto w-[400px]">
-                <p className="text-xl text-center">
-                    {rangeValue}
-                </p>
-                <input className="w-full"
-                    value={rangeValue}
-                    onChange={(e) => setRangeValue(parseFloat(e.target.value))}
-                    type="range" min={0} max={10} step={0.1} list="markers" />
-                <datalist id="markers" className="flex justify-between">
-                    {labels.map(label =>
-                        <option key={label} value={label} label={label.toString()}></option>
-                    )}
-                </datalist>
+        <div className="flex-1 flex space-y-8">
+            <div className="flex-1 space-y-8 m-4">
+                <ModelControl />
+                <Faucet />
+            </div>
+            <div className="flex-3">
+
             </div>
         </div>
     )
