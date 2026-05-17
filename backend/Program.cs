@@ -17,7 +17,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddSignalR();
+builder.Services.AddScoped<BathtubService>();
+// register model state to share between hub and background service
 builder.Services.AddScoped<BathtubSimulationState>();
+// register background service
+builder.Services.AddHostedService<SimulationWorker>();
 
 var app = builder.Build();
 

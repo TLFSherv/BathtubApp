@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { TBathtubDataRequest } from "../types/types";
 import * as signalR from '@microsoft/signalr';
 
-export default function useSimulation(url: string, request: TBathtubDataRequest) {
+export default function useDataSend(url: string, data: TBathtubDataRequest) {
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     useEffect(() => {
@@ -19,11 +19,11 @@ export default function useSimulation(url: string, request: TBathtubDataRequest)
 
     useEffect(() => {
         setWaterInflowRate()
-    }, [request.inputFlowRate]);
+    }, [data.inputFlowRate]);
 
     useEffect(() => {
         setBathtubModel();
-    }, [request.drainArea, request.surfaceArea])
+    }, [data.drainArea, data.surfaceArea])
 
     async function start() {
         try {
@@ -36,7 +36,7 @@ export default function useSimulation(url: string, request: TBathtubDataRequest)
 
     async function setWaterInflowRate() {
         try {
-            await connection?.invoke("UpdateWaterInflowRate", request.inputFlowRate);
+            await connection?.invoke("UpdateWaterInflowRate", data.inputFlowRate);
         } catch (error) {
             console.error(error);
         }
@@ -44,7 +44,7 @@ export default function useSimulation(url: string, request: TBathtubDataRequest)
 
     async function setBathtubModel() {
         try {
-            await connection?.invoke("UpdateBathtubModel", request.drainArea, request.surfaceArea);
+            await connection?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea);
         } catch (error) {
             console.error(error);
         }
