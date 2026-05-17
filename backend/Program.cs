@@ -17,6 +17,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddSignalR();
+builder.Services.AddScoped<BathtubSimulationState>();
 
 var app = builder.Build();
 
@@ -33,5 +34,5 @@ app.UseHttpsRedirection();
 app.UseStatusCodePages();
 
 app.MapControllers();
-app.MapHub<NotificationHub>("/notificationHub");
+app.MapHub<BathtubHub>("/bathtubHub");
 app.Run();
