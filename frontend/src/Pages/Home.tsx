@@ -1,17 +1,19 @@
-import Faucet from "../components/Faucet"
-import ModelControl from "../components/ModelControl"
+import InflowSlider from "../components/InflowSlider"
+import BathtubControl from "../components/BathtubControl"
+import { BathtubProvider } from "../store/BathtubProvider"
 
 export default function Home() {
-
     return (
-        <div className="flex-1 flex space-y-8">
-            <div className="flex-1 space-y-8 m-4">
-                <ModelControl />
-                <Faucet />
-            </div>
-            <div className="flex-3">
+        <BathtubProvider>
+            <div className="flex-1 flex space-y-8">
+                <div className="flex-1 space-y-8 m-4">
+                    <BathtubControl />
+                    <InflowSlider />
+                </div>
+                <div className="flex-3">
 
+                </div>
             </div>
-        </div>
+        </BathtubProvider>
     )
 }
