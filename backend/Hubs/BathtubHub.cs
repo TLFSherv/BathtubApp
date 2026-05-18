@@ -7,9 +7,10 @@ public sealed class BathtubHub : Hub
     {
         _state = state;
     }
-    public void UpdateWaterInflowRate(double inflowRate)
+    public void UpdateWaterInflowRate(double inflowRate, double inflowRateFinal)
     {
         _state.InputFlowRate = inflowRate;
+        _state.FinalInputFlowRate = inflowRateFinal;
     }
 
     public void UpdateBathtubModel(double drainArea, double surfaceArea)

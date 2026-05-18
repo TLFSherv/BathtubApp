@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
-import type { TBathtubDataRequest } from "../types/types";
+import type { SimulationRequest, SimulationResponse } from "../types/types";
 import * as signalR from '@microsoft/signalr';
 
-export default function useDataSend(url: string, data: TBathtubDataRequest) {
+export default function useRealtimeData(data: SimulationRequest): SimulationResponse {
+    const connectionUrl = "http://localhost:5122/bathtubHub";
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [result, setResult] = useState<SimulationResponse>({ time: 0, inputFlowRate: 0, outputFlowRate: 0 });
 
     useEffect(() => {
         const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl(url, {})
+            .withUrl(connectionUrl, {})
             .withAutomaticReconnect()
             .build();
-        if (newConnection) setConnection(newConnection);
-    }, [url]);
+        setConnection(newConnection);
+
+        newConnection.on("RecieveSimulationTick", (newData: SimulationResponse) => {
+            setResult(newData);
+        })
+
+        return () => { newConnection.off("RecieveSimulationTick"); }
+    }, []);
 
     useEffect(() => {
         start();
@@ -19,7 +27,7 @@ export default function useDataSend(url: string, data: TBathtubDataRequest) {
 
     useEffect(() => {
         setWaterInflowRate()
-    }, [data.inputFlowRate]);
+    }, [data.inputFlowRateFinal]);
 
     useEffect(() => {
         setBathtubModel();
@@ -36,7 +44,7 @@ export default function useDataSend(url: string, data: TBathtubDataRequest) {
 
     async function setWaterInflowRate() {
         try {
-            await connection?.invoke("UpdateWaterInflowRate", data.inputFlowRate);
+            await connection?.invoke("UpdateWaterInflowRate", data.inputFlowRateInit, data.inputFlowRateFinal);
         } catch (error) {
             console.error(error);
         }
@@ -49,4 +57,6 @@ export default function useDataSend(url: string, data: TBathtubDataRequest) {
             console.error(error);
         }
     }
+
+    return result;
 }

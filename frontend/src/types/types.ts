@@ -1,4 +1,4 @@
-export type TBathtubSimulationState = {
+export type BathtubSimulationState = {
     length: number;
     width: number;
     drainDiameter: number;
@@ -6,18 +6,21 @@ export type TBathtubSimulationState = {
     drainArea: number
     time: number;
     inputFlowRate: number;
+    inputFlowRateFinal: number;
+    inputFlowRateInit: number;
     outputFlowRate: number;
 };
 
-export type TBathtubDataRequest = {
+export type SimulationRequest = {
     drainDiameter: number;
     surfaceArea: number;
     drainArea: number
     time: number;
-    inputFlowRate: number;
+    inputFlowRateFinal: number;
+    inputFlowRateInit: number;
 }
 
-export type TBathtubDataResponse = {
+export type SimulationResponse = {
     time: number;
     inputFlowRate: number;
     outputFlowRate: number;

@@ -1,15 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var AllowFrontendOrigin = "ReactFrontend";
+var AllowFrontendOrigin = "_reactFrontend";
 // specify allowed origins for CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(AllowFrontendOrigin, policy =>
+    options.AddPolicy(name: AllowFrontendOrigin, policy =>
     {
-        policy.WithOrigins("http://localhost:5173/*")
-        .SetIsOriginAllowedToAllowWildcardSubdomains()
+        policy.WithOrigins("http://localhost:5173")
         .AllowAnyHeader()
-        .WithMethods("GET", "POST")
+        .AllowAnyMethod()
         .AllowCredentials();
     });
 });
@@ -17,9 +16,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddSignalR();
-builder.Services.AddScoped<BathtubService>();
+builder.Services.AddSingleton<BathtubService>();
 // register model state to share between hub and background service
-builder.Services.AddScoped<BathtubSimulationState>();
+builder.Services.AddSingleton<BathtubSimulationState>();
 // register background service
 builder.Services.AddHostedService<SimulationWorker>();
 

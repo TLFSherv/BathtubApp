@@ -24,6 +24,14 @@ public class SimulationWorker : BackgroundService
             // calculate input and output flow rates
             _state.InputFlowRate = _service.CalculateInputFlowRate(_state);
             _state.OutputFlowRate = _service.CalculateOutputFlowRate(_state);
+
+            await _hubContext.Clients.All.SendAsync("RecieveSimulationTick",
+            new
+            {
+                time = _state.Time,
+                inflowRate = _state.InputFlowRate,
+                outputFlowRate = _state.OutputFlowRate
+            }, stoppingToken);
             await Task.Delay(TimeSpan.FromMilliseconds(100), stoppingToken);
         }
     }
