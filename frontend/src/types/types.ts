@@ -24,4 +24,5 @@ export type SimulationResponse = {
     time: number;
     inputFlowRate: number;
     outputFlowRate: number;
+    steadyStateTimeConstant: number;
 }

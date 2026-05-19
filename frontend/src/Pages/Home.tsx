@@ -11,7 +11,7 @@ export default function Home() {
                     <BathtubControl />
                     <InflowSlider />
                 </div>
-                <div className="flex-1 my-auto">
+                <div className="flex-1">
                     <LiveGraph />
                 </div>
             </div>

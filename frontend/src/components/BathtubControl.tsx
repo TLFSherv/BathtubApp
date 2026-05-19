@@ -17,7 +17,7 @@ export default function BathtubControl() {
 
     return (
         <div>
-            <h2 className="text-2xl">
+            <h2 className="text-xl text-center">
                 Bathtub parameters (m)
             </h2>
             <form className="p-4 border rounded-md">
@@ -26,19 +26,19 @@ export default function BathtubControl() {
                         <label className="block" htmlFor="length">Length:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.length} onChange={e => handleChange(e)}
-                            type="number" min={0} step={0.01} name="length" />
+                            type="number" min={0} step={0.001} name="length" />
                     </div>
                     <div>
                         <label className="block" htmlFor="width">Width:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.width} onChange={e => handleChange(e)}
-                            type="number" min={0} step={0.01} name="width" />
+                            type="number" min={0} step={0.001} name="width" />
                     </div>
                     <div>
                         <label className="block" htmlFor="drainDiameter"> Drain hole diameter:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.drainDiameter} onChange={e => handleChange(e)}
-                            type="number" min={0} step={0.01} name="drainDiameter" />
+                            type="number" min={0} step={0.0001} name="drainDiameter" />
                     </div>
                     <div>
                         <label className="block" htmlFor="surfaceArea">Surface area:</label>

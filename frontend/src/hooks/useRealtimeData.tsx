@@ -5,7 +5,12 @@ import * as signalR from '@microsoft/signalr';
 export default function useRealtimeData(data: SimulationRequest): SimulationResponse {
     const connectionUrl = "http://localhost:5122/bathtubHub";
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
-    const [result, setResult] = useState<SimulationResponse>({ time: 0, inputFlowRate: 0, outputFlowRate: 0 });
+    const [result, setResult] = useState<SimulationResponse>({
+        time: 0,
+        inputFlowRate: 0,
+        outputFlowRate: 0,
+        steadyStateTimeConstant: 0
+    });
 
     useEffect(() => {
         const newConnection = new signalR.HubConnectionBuilder()

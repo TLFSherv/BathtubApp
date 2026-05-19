@@ -6,7 +6,7 @@ public class BathtubSimulationState
     [Required]
     public double SurfaceArea { get; set; } = 1.2;
     [Required]
-    public double DrainArea { get; set; } = 0.001145;
+    public double DrainArea { get; set; } = 0.00114;
     [Required]
     public double Time { get; set; }
     [Required]
@@ -15,5 +15,7 @@ public class BathtubSimulationState
     public double InputFlowRate { get; set; }
     [Required]
     public double OutputFlowRate { get; set; }
+    [Required]
+    public double SteadyStateTimeConstant { get; set; }
 
 }

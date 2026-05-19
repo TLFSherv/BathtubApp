@@ -6,13 +6,13 @@ export default function InflowSlider() {
     const labels = new Array(5).fill(0).map((_, i) => i);
     return (
         <div className="mx-auto w-[400px] space-y-4">
-            <h1 className="text-2xl">Input water flow rate (ltr/s)</h1>
+            <h1 className="text-xl text-center">Input water flow rate (ltr/s)</h1>
             <div className="flex justify-evenly">
                 <div>
                     <label className="block">Init flow rate</label>
                     <input
                         type="number"
-                        step={0.01}
+                        step={0.001}
                         value={bathtub.inputFlowRateInit}
                         onChange={(e) => setBathtub({ ...bathtub, inputFlowRateInit: parseFloat(e.target.value) })}
                         className="text-3xl text-center border rounded-md w-[100px] p-2" />
@@ -20,7 +20,7 @@ export default function InflowSlider() {
                 </div>
                 <input
                     type="number"
-                    step={0.01}
+                    step={0.001}
                     value={bathtub.inputFlowRate}
                     onChange={(e) => setBathtub({ ...bathtub, inputFlowRate: parseFloat(e.target.value) })}
                     className="text-3xl text-center border rounded-md w-[100px] p-2" />
@@ -28,7 +28,7 @@ export default function InflowSlider() {
                     <label className="block">Final flow rate</label>
                     <input
                         type="number"
-                        step={0.01}
+                        step={0.001}
                         value={bathtub.inputFlowRateFinal}
                         onChange={(e) => setBathtub({ ...bathtub, inputFlowRateFinal: parseFloat(e.target.value) })}
                         className="text-3xl text-center border rounded-md w-[100px] p-2" />
@@ -39,7 +39,7 @@ export default function InflowSlider() {
                 onMouseDown={() => setBathtub({ ...bathtub, inputFlowRateInit: bathtub.inputFlowRate })}
                 onMouseUp={() => setBathtub({ ...bathtub, inputFlowRateFinal: bathtub.inputFlowRate })}
                 onChange={(e) => setBathtub({ ...bathtub, inputFlowRate: parseFloat(e.target.value) })}
-                type="range" min={labels[0]} max={labels.at(-1)} step={0.01} list="markers" />
+                type="range" min={labels[0]} max={labels.at(-1)} step={0.001} list="markers" />
             <datalist id="markers" className="flex justify-between">
                 {labels.map(label =>
                     <option key={label} value={label} label={label.toString()}></option>

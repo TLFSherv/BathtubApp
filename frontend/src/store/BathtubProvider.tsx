@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import type { BathtubSimulationState } from "../types/types"
 
 const initBathtub: BathtubSimulationState = {
-    length: 0.16,
-    width: 0.075,
+    length: 1.6,
+    width: 0.75,
     drainDiameter: 0.0381,
     surfaceArea: 1.2,
     drainArea: 0.001140,
