@@ -21,33 +21,33 @@ export default function BathtubControl() {
                 Bathtub parameters (m)
             </h2>
             <form className="p-4 border rounded-md">
-                <div className="grid grid-cols-2 gap-y-4">
+                <div className="grid grid-cols-2 grid-rows-3 gap-y-4">
                     <div>
-                        <label htmlFor="length">Length:</label>
+                        <label className="block" htmlFor="length">Length:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.length} onChange={e => handleChange(e)}
                             type="number" min={0} step={0.01} name="length" />
                     </div>
                     <div>
-                        <label htmlFor="width">Width:</label>
+                        <label className="block" htmlFor="width">Width:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.width} onChange={e => handleChange(e)}
                             type="number" min={0} step={0.01} name="width" />
                     </div>
                     <div>
-                        <label htmlFor="drainDiameter"> Drain hole diameter:</label>
+                        <label className="block" htmlFor="drainDiameter"> Drain hole diameter:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.drainDiameter} onChange={e => handleChange(e)}
                             type="number" min={0} step={0.01} name="drainDiameter" />
                     </div>
                     <div>
-                        <label htmlFor="surfaceArea">Surface area:</label>
+                        <label className="block" htmlFor="surfaceArea">Surface area:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.surfaceArea}
                             type="number" min={0} name="surfaceArea" disabled />
                     </div>
                     <div>
-                        <label htmlFor="drainArea">Drain area:</label>
+                        <label className="block" htmlFor="drainArea">Drain area:</label>
                         <input className="border-[#BBBABA] border rounded-lg py-1 px-2 w-[160px]"
                             value={bathtub.drainArea}
                             type="number" min={0} name="drainArea" disabled />

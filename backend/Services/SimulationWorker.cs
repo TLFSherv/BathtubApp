@@ -20,7 +20,7 @@ public class SimulationWorker : BackgroundService
         double dt = 0.1; // 100ms updates
         while (!stoppingToken.IsCancellationRequested)
         {
-            _state.Time += dt;
+            _state.Time = Math.Round(_state.Time + dt, 1);
             // calculate input and output flow rates
             _state.InputFlowRate = _service.CalculateInputFlowRate(_state);
             _state.OutputFlowRate = _service.CalculateOutputFlowRate(_state);
@@ -29,7 +29,7 @@ public class SimulationWorker : BackgroundService
             new
             {
                 time = _state.Time,
-                inflowRate = _state.InputFlowRate,
+                inputFlowRate = _state.InputFlowRate,
                 outputFlowRate = _state.OutputFlowRate
             }, stoppingToken);
             await Task.Delay(TimeSpan.FromMilliseconds(100), stoppingToken);
