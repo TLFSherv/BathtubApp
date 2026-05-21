@@ -14,4 +14,6 @@ I learned a lot and I'm looking forward to my next challenge.
 [![My Skills](https://skillicons.dev/icons?i=ts,html,tailwind,cs,dotnet,react)](https://skillicons.dev)
 
 ## Screenshots
-<img width="3014" height="1508" alt="image" src="https://github.com/user-attachments/assets/53edba35-1a55-4413-bc17-a597df295cc0" />
+<img width="2950" height="1274" alt="image" src="https://github.com/user-attachments/assets/ee993d63-7bcb-4590-8973-7e0215e9ae4e" />
+
+
