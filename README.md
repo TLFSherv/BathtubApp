@@ -18,7 +18,9 @@ I learned a lot and I'm looking forward to my next challenge.
 
 ## Mathematics
 
-$C_d$ is the standard discharge coefficient for sharp edged geometry ($C_d=0.62$)\
+$C_d$ - standard discharge coefficient for sharp edged geometry ($C_d=0.62$)\
+
+Formula for $C$ (the flow restriction from the drain) is:\
 $C = C_d * A_{drain}$ 
 
 Formula for calculating steady state height ($g=gravity$):\
