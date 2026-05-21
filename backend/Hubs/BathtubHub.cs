@@ -7,17 +7,16 @@ public sealed class BathtubHub : Hub
     {
         _state = state;
     }
-    public void UpdateWaterInflowRate(double inflowRate, double inflowRateFinal)
+    public void UpdateWaterInflowRate(double currentInputFlowRate, double targetInputFlowRate)
     {
         // convert from ltr/sec to m3/sec
-        _state.InputFlowRate = inflowRate / 1000;
-        _state.FinalInputFlowRate = inflowRateFinal / 1000;
+        _state.CurrentInputFlowRate = currentInputFlowRate / 1000;
+        _state.TargetInputFlowRate = targetInputFlowRate / 1000;
     }
 
     public void UpdateBathtubModel(double drainArea, double surfaceArea)
     {
         _state.DrainArea = drainArea;
         _state.SurfaceArea = surfaceArea;
-        _state.SteadyStateTimeConstant = _state.Time;
     }
 }

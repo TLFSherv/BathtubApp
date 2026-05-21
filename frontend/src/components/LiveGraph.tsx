@@ -1,48 +1,29 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { BathtubContext } from '../store/BathtubProvider';
-import type { SimulationRequest, SimulationResponse } from '../types/types';
+import type { SimulationRequest } from '../types/types';
 import useRealtimeData from '../hooks/useRealtimeData';
 import { CartesianGrid, Legend, Line, LineChart, ReferenceLine, XAxis, YAxis } from 'recharts';
 import { RechartsDevtools } from '@recharts/devtools';
 
 export default function LiveGraph() {
-    const [dataWindow, setDataWindow] = useState<SimulationResponse[]>([]);
     let { bathtub } = useContext(BathtubContext);
     const req: SimulationRequest = {
         drainDiameter: bathtub.drainDiameter,
         surfaceArea: bathtub.surfaceArea,
         drainArea: bathtub.drainArea,
         time: bathtub.time,
-        inputFlowRateFinal: bathtub.inputFlowRateFinal,
-        inputFlowRateInit: bathtub.inputFlowRateInit,
+        targetInputFlowRate: bathtub.inputFlowRateFinal,
+        currentInputFlowRate: bathtub.inputFlowRateInit,
     };
-    const newData = useRealtimeData(req);
-    let steadyStateTimeConstant;
 
-    useEffect(() => {
-        const newDataWindow = [...dataWindow, newData];
-        if (newDataWindow.length > 60) newDataWindow.shift();
-        steadyStateTimeConstant = Math.round(dataWindow.at(-1)?.steadyStateTimeConstant ?? 0);
-        // console.log(newDataWindow.at(-1)?.steadyStateTimeConstant);
-        setDataWindow(newDataWindow);
-    }, [newData.outputFlowRate])
-
-    // const testData: SimulationResponse[] = [
-    //     { time: 0, inputFlowRate: 0, outputFlowRate: 0, steadyStateTimeConstant: 2 },
-    //     { time: 1, inputFlowRate: 1, outputFlowRate: 2, steadyStateTimeConstant: 2 },
-    //     { time: 2, inputFlowRate: 2, outputFlowRate: 4, steadyStateTimeConstant: 2 },
-    //     { time: 3, inputFlowRate: 3, outputFlowRate: 6, steadyStateTimeConstant: 2 },
-    //     { time: 4, inputFlowRate: 4, outputFlowRate: 8, steadyStateTimeConstant: 2 },
-    //     { time: 5, inputFlowRate: 5, outputFlowRate: 10, steadyStateTimeConstant: 2 },
-    //     { time: 6, inputFlowRate: 6, outputFlowRate: 12, steadyStateTimeConstant: 2 },
-    //     { time: 7, inputFlowRate: 7, outputFlowRate: 14, steadyStateTimeConstant: 2 }
-    // ];
+    const liveData = useRealtimeData(req);
+    let steadyStateTimeConstant = Math.round(liveData.at(-1)?.steadyStateTimeConstant ?? 0);
 
     return (
         <div className='space-y-8'>
             <div className='text-xl space-x-4 mx-auto w-fit'>
                 <label>Steady State Time Constant (s)</label>
-                <input className='text-2xl border rounded-md text-center p-4 w-[100px] mx-auto'
+                <input type='text' className='text-2xl border rounded-md text-center p-4 w-[100px] mx-auto'
                     value={steadyStateTimeConstant} disabled />
             </div>
             <div>
@@ -52,7 +33,7 @@ export default function LiveGraph() {
                 <LineChart
                     style={{ width: '100%', aspectRatio: 1.618, maxWidth: 600, height: 400 }}
                     responsive
-                    data={dataWindow}
+                    data={liveData}
                     margin={{
                         top: 20,
                         right: 20,

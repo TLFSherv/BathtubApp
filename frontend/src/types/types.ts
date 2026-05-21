@@ -16,13 +16,14 @@ export type SimulationRequest = {
     surfaceArea: number;
     drainArea: number
     time: number;
-    inputFlowRateFinal: number;
-    inputFlowRateInit: number;
+    targetInputFlowRate: number;
+    currentInputFlowRate: number;
 }
 
 export type SimulationResponse = {
     time: number;
     inputFlowRate: number;
     outputFlowRate: number;
+    currentHeight: number;
     steadyStateTimeConstant: number;
 }

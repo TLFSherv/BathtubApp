@@ -2,66 +2,78 @@ import { useEffect, useState } from "react";
 import type { SimulationRequest, SimulationResponse } from "../types/types";
 import * as signalR from '@microsoft/signalr';
 
-export default function useRealtimeData(data: SimulationRequest): SimulationResponse {
+export default function useRealtimeData(data: SimulationRequest): SimulationResponse[] {
     const connectionUrl = "http://localhost:5122/bathtubHub";
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
-    const [result, setResult] = useState<SimulationResponse>({
+    const [dataWindow, setDataWindow] = useState<SimulationResponse[]>([{
         time: 0,
         inputFlowRate: 0,
         outputFlowRate: 0,
+        currentHeight: 0,
         steadyStateTimeConstant: 0
-    });
+    }]);
 
+    // setup connection and event listeners
     useEffect(() => {
         const newConnection = new signalR.HubConnectionBuilder()
             .withUrl(connectionUrl, {})
             .withAutomaticReconnect()
             .build();
+
         setConnection(newConnection);
 
         newConnection.on("RecieveSimulationTick", (newData: SimulationResponse) => {
-            setResult(newData);
-        })
+            setDataWindow((prevWindow) => {
+                const nextWindow = [...prevWindow, newData];
+                if (nextWindow.length > 60) {
+                    nextWindow.shift();
+                }
+                return nextWindow;
+            });
+        });
 
-        return () => { newConnection.off("RecieveSimulationTick"); }
+        return () => {
+            newConnection.off("RecieveSimulationTick");
+            newConnection.stop();
+        }
     }, []);
 
+    // start connection and send initial configuration state
     useEffect(() => {
+        if (!connection) return;
+
+        async function start() {
+            try {
+                if (connection) await connection.start();
+
+                //connection is live, send initial configuration immediately
+                await connection?.invoke("UpdateWaterInflowRate", data.currentInputFlowRate, data.targetInputFlowRate);
+                await connection?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea);
+            }
+            catch (err) {
+                console.log("SignalR connection error: ", err);
+            }
+        }
+
         start();
     }, [connection]);
 
+    // handle subsequent runtime updates from user input
     useEffect(() => {
-        setWaterInflowRate()
-    }, [data.inputFlowRateFinal]);
+        if (connection && connection.state === signalR.HubConnectionState.Connected) {
+            connection
+                ?.invoke("UpdateWaterInflowRate", data.currentInputFlowRate, data.targetInputFlowRate)
+                .catch(err => console.error(err));
+        }
+    }, [data.currentInputFlowRate, data.targetInputFlowRate]);
 
     useEffect(() => {
-        setBathtubModel();
+        if (connection && connection.state === signalR.HubConnectionState.Connected) {
+            connection
+                ?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea)
+                .catch(err => console.log(err));
+        }
     }, [data.drainArea, data.surfaceArea])
 
-    async function start() {
-        try {
-            if (connection) await connection.start();
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
-    async function setWaterInflowRate() {
-        try {
-            await connection?.invoke("UpdateWaterInflowRate", data.inputFlowRateInit, data.inputFlowRateFinal);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async function setBathtubModel() {
-        try {
-            await connection?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    return result;
+    return dataWindow;
 }
