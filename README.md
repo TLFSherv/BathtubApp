@@ -11,6 +11,7 @@ My react frontend and c# asp.net backend continuously transmit flow rates for di
 I learned a lot and I'm looking forward to my next challenge.
 
 ## Tech Stack
+[![My Skills](https://skillicons.dev/icons?i=ts,html,tailwind,cs,dotnet,react)](https://skillicons.dev)
 
 ## Screenshots
 <img width="3014" height="1508" alt="image" src="https://github.com/user-attachments/assets/53edba35-1a55-4413-bc17-a597df295cc0" />
