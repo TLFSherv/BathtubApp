@@ -16,4 +16,24 @@ I learned a lot and I'm looking forward to my next challenge.
 ## Screenshots
 <img width="2950" height="1274" alt="image" src="https://github.com/user-attachments/assets/ee993d63-7bcb-4590-8973-7e0215e9ae4e" />
 
+## Mathematics
+
+$C_d$ is the standard discharge coefficient for sharp edged geometry ($C_d=0.62$)\
+$C = C_d * A_{drain}$ 
+
+Formula for calculating steady state height ($g=gravity$):\
+$h_{steady} = \frac{Q_{in}^2}{2gC^2}$
+
+The output flow rate $Q_{out}$ is:\
+$Q_{out} = C\sqrt{2gh}$
+
+The formula for the height of the water is:
+```math
+h = \frac{(Q_{in} - Q_{out})*\Delta t}{A}
+```
+
+Steady state time
+```math
+T = \frac{2*A*h_{steady}}{Q_{in,final}}
+```
 
