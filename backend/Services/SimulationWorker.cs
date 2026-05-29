@@ -5,7 +5,6 @@ public class SimulationWorker : BackgroundService
     private readonly IHubContext<BathtubHub> _hubContext;
     private readonly BathtubSimulationState _state;
     private readonly BathtubService _service;
-    private readonly ILogger _logger;
     public SimulationWorker(IHubContext<BathtubHub> hubContext,
         BathtubSimulationState state,
         BathtubService service)
@@ -36,7 +35,7 @@ public class SimulationWorker : BackgroundService
                 // detect when the time constant shifts due to user interaction
                 if (Math.Abs(timeConstant - lastTimeConstant) > 0.001)
                 {
-                    _state.SteadyStateTimeConstant = Math.Round(_state.Time + timeConstant * 4, 1);
+                    _state.SteadyStateTimeConstant = Math.Round(_state.Time + timeConstant, 1);
                     lastTimeConstant = timeConstant;
                 }
 
@@ -54,12 +53,10 @@ public class SimulationWorker : BackgroundService
         catch (OperationCanceledException)
         {
             Console.WriteLine("Simulation background worker is stopping gracefully");
-            //_logger.LogInformation("Simulation background worker is stopping gracefully");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An unhandled error occured during the simulation loop: {ex}");
-            // _logger.LogError(ex, "An unhandled error occured during the simulation loop");
         }
     }
 }

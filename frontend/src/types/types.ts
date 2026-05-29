@@ -2,8 +2,6 @@ export type BathtubSimulationState = {
     length: number;
     width: number;
     drainDiameter: number;
-    surfaceArea: number;
-    drainArea: number
     time: number;
     inputFlowRate: number;
     inputFlowRateFinal: number;
@@ -12,9 +10,9 @@ export type BathtubSimulationState = {
 };
 
 export type SimulationRequest = {
+    length: number;
+    width: number;
     drainDiameter: number;
-    surfaceArea: number;
-    drainArea: number
     time: number;
     targetInputFlowRate: number;
     currentInputFlowRate: number;

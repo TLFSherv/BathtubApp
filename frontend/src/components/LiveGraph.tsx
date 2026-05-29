@@ -8,9 +8,9 @@ import { RechartsDevtools } from '@recharts/devtools';
 export default function LiveGraph() {
     let { bathtub } = useContext(BathtubContext);
     const req: SimulationRequest = {
+        length: bathtub.length,
+        width: bathtub.width,
         drainDiameter: bathtub.drainDiameter,
-        surfaceArea: bathtub.surfaceArea,
-        drainArea: bathtub.drainArea,
         time: bathtub.time,
         targetInputFlowRate: bathtub.inputFlowRateFinal,
         currentInputFlowRate: bathtub.inputFlowRateInit,

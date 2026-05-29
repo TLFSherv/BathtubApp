@@ -12,6 +12,8 @@ export default function useRealtimeData(data: SimulationRequest): SimulationResp
         currentHeight: 0,
         steadyStateTimeConstant: 0
     }]);
+    let surfaceArea = data.length * data.width;
+    let drainArea = Math.PI * Math.pow(data.drainDiameter / 2, 2);
 
     // setup connection and event listeners
     useEffect(() => {
@@ -48,7 +50,7 @@ export default function useRealtimeData(data: SimulationRequest): SimulationResp
 
                 //connection is live, send initial configuration immediately
                 await connection?.invoke("UpdateWaterInflowRate", data.currentInputFlowRate, data.targetInputFlowRate);
-                await connection?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea);
+                await connection?.invoke("UpdateBathtubModel", drainArea, surfaceArea);
             }
             catch (err) {
                 console.log("SignalR connection error: ", err);
@@ -70,10 +72,10 @@ export default function useRealtimeData(data: SimulationRequest): SimulationResp
     useEffect(() => {
         if (connection && connection.state === signalR.HubConnectionState.Connected) {
             connection
-                ?.invoke("UpdateBathtubModel", data.drainArea, data.surfaceArea)
+                ?.invoke("UpdateBathtubModel", drainArea, surfaceArea)
                 .catch(err => console.log(err));
         }
-    }, [data.drainArea, data.surfaceArea])
+    }, [data.drainDiameter, data.length, data.width])
 
     return dataWindow;
 }

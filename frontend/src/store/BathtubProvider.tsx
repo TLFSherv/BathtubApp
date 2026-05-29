@@ -5,8 +5,6 @@ const initBathtub: BathtubSimulationState = {
     length: 1.6,
     width: 0.75,
     drainDiameter: 0.0381,
-    surfaceArea: 1.2,
-    drainArea: 0.001140,
     time: 0,
     inputFlowRate: 0.417,
     inputFlowRateFinal: 0.417,
